@@ -1,42 +1,5 @@
-var BUILDING_DATA = {
-	floors: {
-		'floor1': {
-			name: 'Floor 1'
-		},
-		'floor2':{
-			name: 'Floor 2'
-		}
-	},
-	rooms: {
-		'room1': {
-			name: 'Room 1',
-			floor: 'floor1'
-		},
-		'roomj': {
-			name: 'Meeting Room',
-			floor: 'floor2'
-		}
-	}
-}
-
-var SENSOR_DATA = {
-	'sensor1': {
-		open: true,
-		room: 'room1'
-	},
-	'sensor2': {
-		open: false,
-		room: 'room1'
-	},
-	'sensor3': {
-		open: false,
-		room: 'roomj'
-	},
-	'sensor4': {
-		open: true,
-		room: 'room1'
-	}
-}
+var OPEN = '<i class="fa fa-check"></i>';
+var TAKEN = '<i class="fa fa-times"></i>';
 
 function getTag(tag, content, opt){
 	var classList = false;
@@ -110,7 +73,7 @@ function getHTML(data){
 			var room = floor.rooms[r];
 			var spotHTML = getTag('h2', room.name);
 			room.spots.forEach(function(a){
-				var aH = getTag('spot', a.open ? 'Y' : 'N', {
+				var aH = getTag('spot', a.open ? OPEN : TAKEN, {
 					classes: [a.open ? 'open' : 'taken']
 				});
 				spotHTML += aH;
@@ -124,11 +87,24 @@ function getHTML(data){
 var db = firebase.database();
 db.ref().on('value', function(snapshot){
 	var val = snapshot.val();
-	console.log(val);
+	//console.log(val);
 	var inData = constructBuilding({
 		floors: val.floors,
 		rooms: val.rooms
 	}, val.sensors);
 	var roomHTML = getHTML(inData);
-	document.body.innerHTML = roomHTML;
+	var spaces = document.getElementById('spaces');
+	spaces.innerHTML = roomHTML;
 });
+
+function addFloor(data){
+	db.ref('floors').push(data);
+}
+
+function addRoom(data){
+	db.ref('rooms').push(data);
+}
+
+function addSensor(data){
+	db.ref('sensors/' + data.id).push(data);
+}

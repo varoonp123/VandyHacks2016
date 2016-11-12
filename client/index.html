@@ -2,11 +2,13 @@
 <html>
 	<head>
 		<title>Rooms</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<!--<link rel="icon" type="img/png" href="style/favicon.png" style="width:30px;">-->
 		<link rel="stylesheet" type="text/css" href="style/reset.css">
 		<link rel="stylesheet/less" type="text/css" href="style/main.less">
 		<script type="text/javascript" src="lib/less.min.js"></script>
-		<!--<link rel="icon" type="img/png" href="style/favicon.png" style="width:30px;">-->
-		<!-- IMPORTED SCRIPTS -->
+		<link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+		<link href="https://fonts.googleapis.com/css?family=Squada+One" rel="stylesheet">
 		<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
 		<script src="https://www.gstatic.com/firebasejs/3.6.0/firebase.js"></script>
 		<script>
@@ -29,19 +31,25 @@
 
 	<body>
 
-		<h1>Floor</h1>
-		<room>
-			<h2>Room 1</h2>
-			<spot>A</spot>
-			<spot>B</spot>
-			<spot>C</spot>
-		</room>
-		<room>
-			<h2>Room 2</h2>
-			<spot>1</spot>
-			<spot>2</spot>
-			<spot>3</spot>
-		</room>
+		<div id="spaces">
+			<h1>Floor</h1>
+			<room>
+				<h2>Room 1</h2>
+				<spot class="taken">A</spot>
+				<spot class="open">B</spot>
+				<spot class="taken">C</spot>
+			</room>
+			<room>
+				<h2>Room 2</h2>
+				<spot class="taken">1</spot>
+				<spot class="taken">2</spot>
+				<spot class="taken">3</spot>
+			</room>
+		</div>
+
+		<div id="editor">
+			<select id=""></select>
+		</div>
 
 		<script type="text/javascript" src="lib/main.js"></script>
 

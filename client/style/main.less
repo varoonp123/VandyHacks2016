@@ -8,6 +8,11 @@
 
 @Charcoal: #1a1a1a;
 
+@OpenColor: #22BFF9;
+@TakenColor: #FF6F59;
+@BoxColor: lighten(@OpenColor, 35%);
+@PageColor: lighten(@OpenColor, 25%);
+
 /*--------------------------------------------*/
 /*---> FONTS <--------------------------------*/
 /*--------------------------------------------*/
@@ -16,11 +21,11 @@
 @tx: 3.0 * @vh;
 
 .HeadFont(){
-	//font-family: 'Source Sans Pro', sans-serif;
+	font-family: 'Squada One', sans-serif;
 }
 
 .BodyFont(){
-	//font-family: 'Source Sans Pro', sans-serif;
+	font-family: 'Squada One', sans-serif;
 }
 
 /*--------------------------------------------*/
@@ -69,7 +74,6 @@ li{
 /*--------------------------------------------*/
 
 html{
-	background: white;
 	//Default Text Styles
 	.BodyFont();
 	font-size: @tx;
@@ -77,6 +81,7 @@ html{
 }
 
 body{
+	background: @PageColor;
 	margin: 0;
 	width: 100vw;
 	margin: 0 auto;
@@ -92,8 +97,12 @@ body{
 /*---> STRUCTURE <----------------------------*/
 /*--------------------------------------------*/
 
+h1, h2 {
+	color: @Charcoal;
+}
+
 h1 {
-	margin: 10px;
+	margin: 5px 15px;
 }
 
 h2 {
@@ -107,12 +116,12 @@ room, spot {
 }
 
 room {
-	background: gray;
+	background: @BoxColor;
 
 }
 
 spot {
-	background: blue;
+	color: @BoxColor;
 	width: 20px;
 	height: 20px;
 	line-height: 20px;
@@ -120,11 +129,11 @@ spot {
 }
 
 spot.open {
-	background: green;
+	background: @OpenColor;
 }
 
-spot.closed {
-	background: red;
+spot.taken {
+	background: @TakenColor;
 }
 
 
