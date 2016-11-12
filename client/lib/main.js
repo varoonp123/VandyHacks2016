@@ -58,9 +58,13 @@ function constructBuilding(bData, sData){
 				return spot;
 			});
 			return room;
+		}, function(a, b){
+			return b.spots.length - a.spots.length;
 		});
 		return floor;
-	})
+	}, function(a, b){
+		return a.name.localeCompare(b.name);
+	});
 	return resData;
 }
 
@@ -84,10 +88,13 @@ function getHTML(data){
 	return html;
 }
 
+var STATE = {};
+
 var db = firebase.database();
 db.ref().on('value', function(snapshot){
 	var val = snapshot.val();
 	//console.log(val);
+	STATE = val;
 	var inData = constructBuilding({
 		floors: val.floors,
 		rooms: val.rooms
@@ -106,5 +113,85 @@ function addRoom(data){
 }
 
 function addSensor(data){
-	db.ref('sensors/' + data.id).push(data);
+	db.ref('sensors/' + data.id).set(data);
+}
+
+var Editor = {
+	addFloor: function(){
+		vex.dialog.open({
+			message: 'Add New Floor',
+			input: '<input name="name" type="text" placeholder="Floor Name" required />',
+			buttons: [
+				$.extend({}, vex.dialog.buttons.YES, {text: 'Add'}),
+				$.extend({}, vex.dialog.buttons.NO, {text: 'Cancel'})
+			],
+			callback: function(data){
+				if(data){
+					addFloor(data);
+				}
+			}
+		});
+	},
+	addRoom: function(){
+		var html = '<input name="name" type="text" placeholder="Room Name" required />';
+		html += '<select name="floor">'
+		//html += '<option value="new_floor">Add New Floor</option>';
+		var floorList = MapToList(STATE.floors, function(floor, key){
+			return {
+				name: floor.name,
+				key: key
+			}
+		}, function(a, b){
+			return a.name.localeCompare(b.name);
+		});
+		for(var f = 0; f < floorList.length; f++){
+			var floor = floorList[f];
+			html += '<option value="' + floor.key + '">' + floor.name + '</option>';
+		}
+		html += '</select>';
+		vex.dialog.open({
+			message: 'Add New Room',
+			input: html,
+			buttons: [
+				$.extend({}, vex.dialog.buttons.YES, {text: 'Add'}),
+				$.extend({}, vex.dialog.buttons.NO, {text: 'Cancel'})
+			],
+			callback: function(data){
+				if(data){
+					addRoom(data);
+				}
+			}
+		});
+	},
+	addSensor: function(){
+		var html = '<input name="id" type="text" placeholder="Sensor ID" required />';
+		html += '<select name="room">'
+		var roomList = MapToList(STATE.rooms, function(room, key){
+			return {
+				name: room.name,
+				key: key
+			}
+		}, function(a, b){
+			return a.name.localeCompare(b.name);
+		});
+		for(var f = 0; f < roomList.length; f++){
+			var room = roomList[f];
+			html += '<option value="' + room.key + '">' + room.name + '</option>';
+		}
+		html += '</select>';
+		vex.dialog.open({
+			message: 'Connect New Sensor',
+			input: html,
+			buttons: [
+				$.extend({}, vex.dialog.buttons.YES, {text: 'Connect'}),
+				$.extend({}, vex.dialog.buttons.NO, {text: 'Cancel'})
+			],
+			callback: function(data){
+				if(data){
+					data.open = true;
+					addSensor(data);
+				}
+			}
+		});
+	}
 }
