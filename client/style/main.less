@@ -82,8 +82,6 @@ html{
 
 body{
 	background: @PageColor;
-	margin: 0;
-	width: 100vw;
 	margin: 0 auto;
 	padding: 5px;
 }
@@ -136,6 +134,40 @@ spot.taken {
 	background: @TakenColor;
 }
 
+div#spaces{
+	position: absolute;
+	width: 100vw;
+	left: 0;
+	top: 0;
+	height: 70vh;
+	overflow-y: scroll;
+}
+
+div#editor{
+	position: absolute;
+	width: 100vw;
+	left: 0;
+	bottom: 0;
+	background: @TakenColor;
+	padding: 10px 0;
+}
+
+button {
+	width: 200px;
+	height: 30px;
+	line-height: 30px;
+	display: block;
+	margin: 5px auto;
+	background: @Charcoal;
+	color: white;
+	text-align: center;
+	.BodyFont();
+	transition: background 0.5s;
+	-webkit-transition: background 0.5s;
+	&:hover{
+		background: @OpenColor;
+	}
+}
 
 /*--------------------------------------------*/
 /*---> HEADER & FOOTER <----------------------*/
@@ -150,4 +182,6 @@ spot.taken {
 input, button, select{
 	outline: none;
 	border: none;
+	font-size: 1.1 * @tx;
+	line-height: 1.35 * @tx;
 }

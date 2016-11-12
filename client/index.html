@@ -9,7 +9,7 @@
 		<script type="text/javascript" src="lib/less.min.js"></script>
 		<link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 		<link href="https://fonts.googleapis.com/css?family=Squada+One" rel="stylesheet">
-		<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
 		<script src="https://www.gstatic.com/firebasejs/3.6.0/firebase.js"></script>
 		<script>
 			// Initialize Firebase
@@ -28,6 +28,8 @@
 		<link rel="stylesheet" href="vex/vex.css" />
 		<link rel="stylesheet" href="vex/vex-theme-os.css" />
 
+		<!--<script src="lib/webcam.js"></script>-->
+
 		<style>
 
 
@@ -37,7 +39,28 @@
 
 	<body>
 
-		<div id="spaces">
+		<!--<div id="camera" style="width:320px; height:240px;"></div>
+		<div id="camera_result"></div>
+		<script language="JavaScript">
+			Webcam.attach('#camera');
+			function take_snapshot(){
+				Webcam.snap(function(data_uri){
+					document.getElementById('camera_result').innerHTML = '<img src="' + data_uri + '"/>';
+				});
+			}
+		</script>-->
+
+<div class="select">
+<label for="audioSource">Audio source: </label><select id="audioSource"></select>
+</div>
+
+<div class="select">
+<label for="videoSource">Video source: </label><select id="videoSource"></select>
+</div>
+
+<video muted autoplay></video>
+
+		<div id="spaces" style="display: none;">
 			<h1>Floor</h1>
 			<room>
 				<h2>Room 1</h2>
@@ -52,6 +75,14 @@
 				<spot class="taken">3</spot>
 			</room>
 		</div>
+
+		<div id="editor">
+			<button id="add-sensor">Add Sensor</button>
+			<button id="add-room">Add Room</button>
+			<button id="add-floor">Add Floor</button>
+		</div>
+
+		<script src="lib/owebcam.js"></script>
 
 		<script type="text/javascript" src="lib/main.js"></script>
 

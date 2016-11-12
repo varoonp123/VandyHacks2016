@@ -11,6 +11,11 @@ function getTag(tag, content, opt){
 	return '<' + tag + (classList ? classList : '') + '>' + content + '</' + tag + '>';
 }
 
+function ClickEvent(id, fn){
+	var dom = document.getElementById(id);
+	dom.addEventListener('click', fn);
+}
+
 function MapToList(map, mapper, sorter){
 	var list = Object.keys(map).map(function(key){
 		if(mapper){
@@ -195,3 +200,7 @@ var Editor = {
 		});
 	}
 }
+
+ClickEvent('add-sensor', Editor.addSensor);
+ClickEvent('add-room', Editor.addRoom);
+ClickEvent('add-floor', Editor.addFloor);
