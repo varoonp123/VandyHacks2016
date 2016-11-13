@@ -114,18 +114,38 @@ h1, h2 {
 	color: @Charcoal;
 }
 
-h1 {
-	margin: 5px 15px;
+div#spaces{
+
+	h1 {
+		margin: 12.5px -10px;
+		background: @Charcoal;
+		color: white;
+		padding: 10px 15px;
+	}
+
+	h2 {
+		margin: -7.5px;
+		margin-bottom: 7.5px;
+		color: white;
+		background: @Charcoal;
+		padding: 7.5px;
+	}
+
 }
 
-h2 {
-	margin: 5px;
+div#editor {
+	h1, h2 {
+		margin: 5px;
+	}
 }
 
-room, spot {
+@SpotSize: 40px;
+
+room, spot , .room-photos {
 	display: inline-block;
 	padding: 5px;
 	margin: 5px;
+	vertical-align: top;
 }
 
 room {
@@ -138,10 +158,10 @@ room {
 spot {
 	background: @Charcoal;
 	color: @PageColor;
-	width: 20px;
-	height: 20px;
-	line-height: 20px;
-	font-size: 15px;
+	width: @SpotSize;
+	height: @SpotSize;
+	line-height: @SpotSize;
+	font-size: @SpotSize * 0.75;
 	text-align: center;
 }
 
@@ -151,6 +171,13 @@ spot.open {
 
 spot.taken {
 	background: @TakenColor;
+}
+
+.room-photos {
+	width: @SpotSize;
+	height: @SpotSize;
+	background: red;
+	background-size: 100%;
 }
 
 scroller {
