@@ -31,11 +31,11 @@ MediaStreamTrack.getSources(function(sourceInfos) {
 });
 
 
-var video, $output;
+var video;
 var scale = 0.25;
+window.IMAGE_DATA = false;
 
 var initialize = function() {
-    $output = $("#output");
     video = $("#video").get(0);
     $("#video").click(captureImage);                
 };
@@ -47,11 +47,12 @@ var captureImage = function() {
     canvas.getContext('2d')
           .drawImage(video, 0, 0, canvas.width, canvas.height);
 
-    var img = document.createElement("img");
     var imgData = canvas.toDataURL();
-    img.src = imgData;
-    console.log(imgData);
-    $output.prepend(img);
+    /*var img = document.createElement("img");
+    img.src = imgData;*/
+    window.IMAGE_DATA = imgData;
+    toggleById('camera');
+    Editor.addPicture();
 };
 
 $(initialize);            

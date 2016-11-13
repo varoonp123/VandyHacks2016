@@ -136,10 +136,12 @@ room {
 }
 
 spot {
+	background: @Charcoal;
 	color: @PageColor;
 	width: 20px;
 	height: 20px;
 	line-height: 20px;
+	font-size: 15px;
 	text-align: center;
 }
 
@@ -151,13 +153,34 @@ spot.taken {
 	background: @TakenColor;
 }
 
-video#video {
-	width: 300px;
-	height: 300px;
-	border-radius: 150px;
+scroller {
 	position: absolute;
+	height: 100%;
+	overflow: scroll;
+	overflow-y: hidden;
+	white-space: nowrap;
+	&.opened{
+		display: block;
+	}
+	&.closed{
+		display: none;
+	}
+}
+
+div#camera {
+	width: 100vw;
+	height: 100vh;
+	background: black;
+	position: absolute;
+	overflow: hidden;
 	top: 0;
 	left: 0;
+	&.opened{
+		display: block;
+	}
+	&.closed{
+		display: none;
+	}
 }
 
 iframe#dashboard {
