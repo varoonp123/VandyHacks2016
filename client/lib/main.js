@@ -91,26 +91,28 @@ function getHTML(data){
 			});
 			spotHTML += getTag('spot', getTag('i', '', {
 				class: 'fa fa-camera'
-			}), {
-				onclick: 'toggleById(&quot;pics-' + f + '-' + r + '&quot;);'
-			});
+			}));
 			var scrollerHTML = '';
 			if(room.pictures){
 				for(var p in room.pictures){
 					var pic = room.pictures[p];
-					scrollerHTML += getTag('img', '', {
-						src: pic
+					spotHTML += getTag('img', '', {
+						src: pic,
+						class: 'room-photos',
+						onclick: 'projectImage(' + pic + ')'
 					});
 				}
 			}
-			spotHTML += getTag('scroller', scrollerHTML, {
-				id: 'pics-' + f + '-' + r,
-				class: 'closed'
-			});
 			html += getTag('room', spotHTML);
 		}
 	}
 	return html;
+}
+
+function projectImage(imgDat){
+	var spot = document.getElementById('spotlight');
+	spot.src = imgDat;
+	toggleById('spotlight');
 }
 
 var STATE = {};
@@ -287,4 +289,8 @@ ClickEvent('view-spaces', function(){
 
 ClickEvent('menu-toggle', function(){
 	toggleById('editor');
+});
+
+ClickEvent('spotlight', function(){
+	toggleById('spotlight');
 });
