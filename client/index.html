@@ -91,6 +91,51 @@
 
 			console.log("LOADED MAIN");
 
+			var dataURL = "https://api.initialstate.com/api/v2/embed/buckets/LPruR6Mon3WOWLJYxpgT28qitz6bY8YX/events"
+
+			function getData(query, callback, limit){
+				$.ajax({
+					url: dataURL,
+					method: "GET",
+					dataType: "txt",
+					data: query,
+					success: function(data, status, jqxhr){
+						callback(data);
+					},
+					error: function(jqxhr, status, error){
+						console.error(error);
+					}
+				});
+			}
+
+			/*var LAST_DATE = new Date(0);
+			var READING = false;
+
+			var checkFeed = function(){
+				if(!READING){
+					getData({}, function(data){
+						READING = true;
+						var dump = data.split('\n').map(function(line){
+							var obj = line.split(',');
+							obj[0] = new Date(obj[0]);
+							return obj;
+						}).filter(function(obj){
+							return obj[0].getTime() > LAST_DATE.getTime();
+						});
+						if(dump.length > 0){
+							console.log(dump);
+							LAST_DATE = dump[dump.length-1][0] || LAST_DATE;
+						}
+						else{
+							console.log('Empty Feed.');
+						}
+						READING = false;
+					});
+				}
+			}
+
+			setInterval(checkFeed, 1000);*/
+
 		</script>
 		
 	</body>
