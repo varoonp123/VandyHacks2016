@@ -96,7 +96,7 @@ function getHTML(data){
 var STATE = {};
 
 var db = firebase.database();
-db.ref().on('value', function(snapshot){
+/*db.ref().on('value', function(snapshot){
 	var val = snapshot.val();
 	//console.log(val);
 	STATE = val;
@@ -107,7 +107,7 @@ db.ref().on('value', function(snapshot){
 	var roomHTML = getHTML(inData);
 	var spaces = document.getElementById('spaces');
 	spaces.innerHTML = roomHTML;
-});
+});*/
 
 function addFloor(data){
 	db.ref('floors').push(data);
@@ -201,6 +201,32 @@ var Editor = {
 	}
 }
 
+function toggleMenu(){
+	var eDiv = document.getElementById('editor');
+	if(eDiv.classList.contains('closed')){
+		eDiv.classList.remove('closed');
+		eDiv.classList.add('opened');
+	}
+	else{
+		eDiv.classList.remove('opened');
+		eDiv.classList.add('closed');
+	}
+}
+
 ClickEvent('add-sensor', Editor.addSensor);
 ClickEvent('add-room', Editor.addRoom);
 ClickEvent('add-floor', Editor.addFloor);
+
+ClickEvent('view-dashboard', function(){
+	document.getElementById('dashboard').style.display = 'block';
+	document.getElementById('spaces').style.display = 'none';
+	toggleMenu();
+});
+
+ClickEvent('view-spaces', function(){
+	document.getElementById('dashboard').style.display = 'none';
+	document.getElementById('spaces').style.display = 'block';
+	toggleMenu();
+});
+
+ClickEvent('menu-toggle', toggleMenu);
