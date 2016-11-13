@@ -111,7 +111,6 @@ function getHTML(data){
 }
 
 function projectImage(imgDat){
-	console.log('called')
 	vex.dialog.alert({
 		unsafeMessage: getTag('img', '', {
 			src: imgDat,
