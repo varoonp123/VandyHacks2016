@@ -1,7 +1,7 @@
 # @Author: Varoon Pazhyanur <Varoon>
 # @Date:   11-12-2016
 # @Last modified by:   Varoon
-# @Last modified time: 11-12-2016
+# @Last modified time: 11-13-2016
 
 import serial
 import time
@@ -18,7 +18,7 @@ def dist_sensor_loop():
     sens3=False
     count = 0
     while True:
-        s = int(ser.readline())
+        s = int(ser1.readline())
         if abs(s)==1 and sens1 is not  (s<0):
             sens1 = not sens1
             db.child("sensors").child("sensor1").update({"open":sens1})
@@ -47,12 +47,18 @@ def dist_sensor_loop():
 #The total value is 3 bytes
 #Pushes both values to the Initial State Data Bucket
 def ir_temp_loop():
-    t = time.time()
-    s = int(ser2.readline())
-    streamer.log("Temp" , float(int(s/1000)/100))
-    streamer.log("Traffic", s%1000)
-dist_port="/dev/cu.HC-06-DevB"
-ir_port = "/dev/cu.HC-06-DevB-1"
+    while True:
+        s = ser2.readline().decode('utf-8')
+
+        print(s)
+        arr = s.split("-")
+        streamer.log("Temp" , float(arr[0]))
+        streamer.log("Traffic", int(arr[1]))
+
+
+dist_port = "/dev/cu.HC-06-DevB-1"
+ir_port="/dev/cu.HC-06-DevB"
+
 #Configure and authenticate firebase DB.
 config = {
     "apiKey": "AIzaSyCaOfxIEzUjDLBBkWhOuiN5R4t2s8LsEKY",
@@ -70,8 +76,8 @@ streamer = Streamer(bucket_key = "PQRLV86HNMS7",access_key="et2FqaeesA6KtWNxufN8
 
 #instantiate serial ports
 
-ser2=serial.Serial(dist_port,9600)
-#ser2 = serial.Serial(ir_port, 9600)
+ser1=serial.Serial(dist_port,9600)
+ser2 = serial.Serial(ir_port, 9600)
 
-#Process(target = dist_sensor_loop).start()
+Process(target = dist_sensor_loop).start()
 Process(target = ir_temp_loop).start()
