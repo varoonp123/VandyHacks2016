@@ -106,6 +106,7 @@ function getHTML(data){
 			html += getTag('room', spotHTML) + '<br>';
 		}
 	}
+	html += '<br><br><br><br><br><br><br><br>'
 	return html;
 }
 
